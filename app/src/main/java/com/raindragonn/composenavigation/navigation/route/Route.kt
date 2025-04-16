@@ -5,8 +5,8 @@ import kotlinx.serialization.Serializable
 sealed interface Route {
 
 	@Serializable
-	data object HOME
+	data class HOME(val count: Int)
 
 	@Serializable
-	data object SECOND
+	data class SECOND(val count: Int)
 }

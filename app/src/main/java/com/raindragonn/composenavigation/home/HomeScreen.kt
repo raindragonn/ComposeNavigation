@@ -9,10 +9,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.raindragonn.composenavigation.navigation.route.Route
 import com.raindragonn.composenavigation.ui.theme.ComposeNavigationTheme
 
 @Composable
 fun HomeScreen(
+	route: Route.HOME,
 	modifier: Modifier = Modifier,
 	onNavigateToSecond: () -> Unit = {},
 ) {
@@ -21,7 +23,7 @@ fun HomeScreen(
 		contentAlignment = Alignment.Center
 	) {
 		Text(
-			text = "홈 화면 입니다.",
+			text = "홈 화면 입니다.(${route.count})",
 			style = MaterialTheme.typography.titleLarge,
 			modifier = Modifier.clickable(onClick = onNavigateToSecond)
 		)
@@ -33,6 +35,6 @@ fun HomeScreen(
 @Composable
 private fun HomeScreenPreview() {
 	ComposeNavigationTheme {
-		HomeScreen()
+		HomeScreen(Route.HOME(100))
 	}
 }

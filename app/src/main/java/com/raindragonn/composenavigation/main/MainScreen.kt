@@ -12,6 +12,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
 import com.raindragonn.composenavigation.home.HomeScreen
 import com.raindragonn.composenavigation.navigation.route.Route
 import com.raindragonn.composenavigation.second.SecondScreen
@@ -27,23 +28,25 @@ fun MainScreen(
 		content = { innerPadding ->
 			NavHost(
 				navController = navController,
-				startDestination = Route.HOME,
+				startDestination = Route.HOME(0),
 				modifier = modifier.padding(innerPadding)
 			) {
 				composable<Route.HOME> {
 					LaunchedEffect(it) {
 						Log.e("DEV_LOG", "MainScreen_home: $it")
 					}
-					HomeScreen {
-						navController.navigate(Route.SECOND)
+					val route = it.toRoute<Route.HOME>()
+					HomeScreen(route) {
+						navController.navigate(Route.SECOND(route.count.inc()))
 					}
 				}
 				composable<Route.SECOND> {
 					LaunchedEffect(it) {
 						Log.e("DEV_LOG", "MainScreen_second: $it")
 					}
-					SecondScreen {
-						navController.navigate(Route.HOME)
+					val route = it.toRoute<Route.SECOND>()
+					SecondScreen(route) {
+						navController.navigate(Route.HOME(route.count.inc()))
 					}
 				}
 			}
