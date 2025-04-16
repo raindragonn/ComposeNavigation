@@ -37,7 +37,11 @@ fun MainScreen(
 					}
 					val route = it.toRoute<Route.HOME>()
 					HomeScreen(route) {
-						navController.navigate(Route.SECOND(route.count.inc()))
+						navController.navigate(Route.SECOND(route.count.inc())) {
+							popUpTo(route) {
+								inclusive = true
+							}
+						}
 					}
 				}
 				composable<Route.SECOND> {
@@ -46,7 +50,11 @@ fun MainScreen(
 					}
 					val route = it.toRoute<Route.SECOND>()
 					SecondScreen(route) {
-						navController.navigate(Route.HOME(route.count.inc()))
+						navController.navigate(Route.HOME(route.count.inc())) {
+							popUpTo(navController.graph.id) {
+								inclusive = true
+							}
+						}
 					}
 				}
 			}
